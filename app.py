@@ -8,6 +8,7 @@ Created: 2024
 import streamlit as st
 import os
 from io import BytesIO
+from groq import Groq
 from dotenv import load_dotenv
 
 # Import utility modules
@@ -199,23 +200,24 @@ with st.sidebar:
     # API Status
     st.markdown("### 🔌 API Status")
     try:
-        summarizer = ContentSummarizer()
-        if summarizer.check_api_status():
-            st.success("✅ Groq API - Connected")
-        else:
-            st.error("❌ Groq API - Disconnected")
-            st.warning("""
-            **Troubleshooting:**
-            1. Verify your GROQ_API_KEY in .env file
-            2. Check your internet connection
-            3. Visit https://console.groq.com/keys to verify API key is valid
-            4. Ensure GROQ_MODEL is set correctly (llama-3.3-70b-versatile recommended)
-            """)
+        api_key = os.getenv("GROQ_API_KEY") or st.secrets.get("GROQ_API_KEY")
+        if not api_key:
+            raise ValueError("GROQ_API_KEY not found in .env or Streamlit secrets")
+
+        client = Groq(api_key=api_key)
+        client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[{"role": "user", "content": "Hello"}],
+            max_tokens=5,
+            temperature=0,
+        )
+
+        st.success("✅ Groq API - Connected")
     except ValueError as e:
         st.error(f"❌ Configuration Error: {str(e)}")
     except Exception as e:
         error_msg = str(e)
-        st.error(f"❌ API Error: {error_msg[:100]}")
+        st.error(f"❌ Groq API Error: {error_msg[:200]}")
         if "authentication" in error_msg.lower() or "unauthorized" in error_msg.lower():
             st.warning("Invalid or expired API key. Please check your GROQ_API_KEY in .env")
         elif "connection" in error_msg.lower() or "timeout" in error_msg.lower():
