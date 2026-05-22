@@ -209,7 +209,7 @@ with st.sidebar:
             1. Verify your GROQ_API_KEY in .env file
             2. Check your internet connection
             3. Visit https://console.groq.com/keys to verify API key is valid
-            4. Ensure GROQ_MODEL is set correctly (mixtral-8x7b-32768 recommended)
+            4. Ensure GROQ_MODEL is set correctly (llama-3.3-70b-versatile recommended)
             """)
     except ValueError as e:
         st.error(f"❌ Configuration Error: {str(e)}")

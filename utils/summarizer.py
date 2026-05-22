@@ -34,8 +34,8 @@ class ContentSummarizer:
                 "Please add it to your .env file."
             )
         
-        # Get model from environment variables (default: mixtral-8x7b-32768)
-        self.model = os.getenv("GROQ_MODEL", "mixtral-8x7b-32768")
+        # Get model from environment variables (default: llama-3.3-70b-versatile)
+        self.model = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
         
         # Initialize Groq client
         self.client = Groq(api_key=api_key)
