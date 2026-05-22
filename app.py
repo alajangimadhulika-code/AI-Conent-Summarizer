@@ -37,57 +37,77 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Custom CSS for styling
+# Custom CSS for styling (dark theme)
 st.markdown("""
     <style>
-    /* Main container styling */
-    .main {
-        padding-top: 2rem;
+    :root {
+        --bg: #0b1220;
+        --card: #0f1724;
+        --muted: #9aa6b2;
+        --accent: #60a5fa;
+        --success: #16a34a;
+        --error: #ef4444;
+        --warning: #f59e0b;
+        --text: #e6eef8;
     }
-    
+
+    /* App background and text */
+    .stApp, .main .block-container {
+        background-color: var(--bg) !important;
+        color: var(--text) !important;
+    }
+
+    /* Sidebar */
+    section[data-testid="stSidebar"] {
+        background-color: #071022 !important;
+        color: var(--text) !important;
+    }
+
     /* Header styling */
     .header-title {
-        color: #1f77b4;
+        color: var(--accent);
         text-align: center;
         font-size: 2.5rem;
         font-weight: bold;
         margin-bottom: 0.5rem;
     }
-    
+
     .header-subtitle {
         text-align: center;
-        color: #666;
+        color: var(--muted);
         font-size: 1.1rem;
         margin-bottom: 2rem;
     }
-    
-    /* Success message styling */
+
+    /* Message boxes */
     .success-box {
-        background-color: #d4edda;
-        border: 1px solid #c3e6cb;
+        background-color: rgba(22,163,74,0.08);
+        border: 1px solid rgba(22,163,74,0.2);
         border-radius: 5px;
         padding: 1rem;
         margin: 1rem 0;
+        color: var(--text);
     }
-    
-    /* Info box styling */
+
     .info-box {
-        background-color: #d1ecf1;
-        border: 1px solid #bee5eb;
+        background-color: rgba(96,165,250,0.06);
+        border: 1px solid rgba(96,165,250,0.14);
         border-radius: 5px;
         padding: 1rem;
         margin: 1rem 0;
+        color: var(--text);
     }
-    
+
     /* Output container styling */
     .output-container {
-        background-color: #f8f9fa;
-        border-left: 4px solid #1f77b4;
+        background-color: var(--card);
+        border-left: 4px solid var(--accent);
         padding: 1.5rem;
         border-radius: 5px;
         margin: 1rem 0;
+        color: var(--text);
     }
-    
+
     /* Statistics styling */
     .stats-container {
         display: flex;
@@ -95,21 +115,28 @@ st.markdown("""
         margin: 1rem 0;
         flex-wrap: wrap;
     }
-    
+
     .stat-box {
-        background-color: #e7f3ff;
+        background-color: rgba(255,255,255,0.03);
         padding: 1rem;
         border-radius: 5px;
         flex: 1;
         min-width: 150px;
+        color: var(--text);
     }
-    
+
     /* Button styling */
-    .button-group {
-        display: flex;
-        gap: 1rem;
-        margin: 1rem 0;
-        flex-wrap: wrap;
+    .stButton>button {
+        background-color: var(--accent) !important;
+        color: #071022 !important;
+        border-radius: 6px !important;
+        padding: 8px 12px !important;
+    }
+
+    /* Code blocks and previews */
+    .stCodeBlock, code, pre {
+        background-color: rgba(255,255,255,0.02) !important;
+        color: var(--text) !important;
     }
     </style>
 """, unsafe_allow_html=True)
